@@ -10,13 +10,14 @@
                         <p class="card-description">
                             {{-- Add Category Item --}}
                         </p>
-                        <form class="forms-sample" action="" method="post" enctype="multipart/form-data">
+                        <form class="forms-sample" action="{{ route('auth.category.store') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">
                                 <label for="name">Category Name</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                    placeholder="Name">
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                    id="name" placeholder="Name">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -26,7 +27,7 @@
 
                             <div class="form-group">
                                 <label>Upload Image</label>
-                                <input type="file" name="img[]"
+                                <input type="file" name="img"
                                     class="file-upload-default @error('img') is-invalid @enderror">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled=""

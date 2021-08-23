@@ -47,3 +47,17 @@ git commit -m "Initial Commit"
 git branch -M master
 git remote add origin https://github.com/ashrafhafiz/classified-ads.git
 git push -u origin master
+
+
+$class = new ReflectionClass('Illuminate\Http\Request');
+$methods = $class->getMethods(ReflectionMethod::IS_PUBLIC);
+$props = $class->getProperties(ReflectionProperty::IS_PUBLIC);
+foreach ($methods as $method) {
+    if ($method->class == 'Illuminate\Http\Request' && $method->name != 'index' && $method->name != '__contruct')
+        print $method->name . "<br>";
+}
+foreach ($props as $prop) {
+    // if ($method->class == 'Illuminate\Http\Request' && $method->name != 'index' && $method->name != '__contruct')
+    print $prop->getName() . "<br>";
+}
+dd(Illuminate\Http\Request);
