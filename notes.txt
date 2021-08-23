@@ -39,3 +39,11 @@ verify email:
 - To get started, ensure the emailVerification feature is enabled in your fortify configuration file's features array.
 - Next, you should ensure that your App\Models\User class implements the Illuminate\Contracts\Auth\MustVerifyEmail interface.
     i.e. class User extends Authenticatable implements MustVerifyEmail
+
+
+git init
+git add *
+git commit -m "Initial Commit"
+git branch -M master
+git remote add origin https://github.com/ashrafhafiz/classified-ads.git
+git push -u origin master
