@@ -1,0 +1,41 @@
+laravel new classified-ads
+cd classified-ads
+npm i
+npm run dev
+npm i --save-dev bootstrap@4.6.0 jquery popper.js cross-env
+
+note: you may need the following packages
+resolve-url-loader          (yes, will be added when start compiling scss)
+sass                        (yes, will be added when start compiling scss)
+sass-loader                 (yes, will be added when start compiling scss)
+vue-template-compiler
+
+Add the content fo https://github.com/laravel/ui/tree/3.x/src/Presets/bootstrap-stubs
+
+npm run dev
+
+
+Fortify::resetPasswordView(function ($request) {
+            // dd($request);
+            return view('auth.password.reset-password', ['token' => $request->route('token')]);
+        });
+
+3 valid methods for passing the token to the reset-password view:
+    1. ['token' => $request->route('token')]
+
+    2. ['token' => request()->route('token')]
+
+    3. ['request' => $request] : better so you can use $request->email also as a value for email field
+       in view: $request->route('token')
+
+
+php artisan make:migration add_avatar_to_users_table --table=users
+php artisan make:migration add_address_to_users_table --table=users
+php artisan make:migration add_fb_id_to_users_table --table=users
+$table->string('fb_id')->nullable()->after('email');
+$table->dropColumn('fb_id');
+
+verify email:
+- To get started, ensure the emailVerification feature is enabled in your fortify configuration file's features array.
+- Next, you should ensure that your App\Models\User class implements the Illuminate\Contracts\Auth\MustVerifyEmail interface.
+    i.e. class User extends Authenticatable implements MustVerifyEmail
