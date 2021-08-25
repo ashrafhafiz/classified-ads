@@ -15,6 +15,7 @@
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('admin/template/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('admin/template/images/favicon.png') }}" />
 </head>
@@ -50,6 +51,7 @@
     <!-- container-scroller -->
 
     <!-- plugins:js -->
+    {{-- <script src="{{ asset('admin/template/vendors/base/jquery-3.5.1.js') }}"></script> --}}
     <script src="{{ asset('admin/template/vendors/base/vendor.bundle.base.js') }}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page-->
@@ -68,9 +70,13 @@
     <script src="{{ asset('admin/template/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('admin/template/js/dataTables.bootstrap4.js') }}"></script>
     <!-- End custom js for this page-->
-    <script src="{{ asset('admin/template/js/jquery.cookie.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('admin/template/js/jquery.cookie.js') }}"></script>
 
     @yield('custom-script')
+
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}
+
 </body>
 
 </html>

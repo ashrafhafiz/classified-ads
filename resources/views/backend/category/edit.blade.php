@@ -6,7 +6,7 @@
             <div class="col-md-10 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Add Category Item</h4>
+                        <h4 class="card-title">Edit Category Item</h4>
                         <p class="card-description">
                             {{-- Add Category Item --}}
                         </p>
@@ -15,7 +15,6 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <ul>
                                     @foreach ($errors->all() as $error)
-                                        {{ toastr()->error('Category cann\'t be added', 'Error', ['positionClass' => 'toast-top-center']) }}
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
@@ -25,14 +24,15 @@
                             </div>
                         @endif
 
-                        <form class="forms-sample" action="{{ route('auth.category.store') }}" method="POST"
+                        <form class="forms-sample" action="{{ route('auth.category.update', $category) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
 
                             <div class="form-group">
                                 <label for="name">Category Name</label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                    id="name" placeholder="Name">
+                                    id="name" placeholder="Name" value="{{ $category->name }}">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -41,7 +41,8 @@
                             </div>
 
                             <div class="form-group">
-                                <img id="showImage" width="100" height="100" src="{{ Storage::url($no_image) }}" alt="">
+                                <img id="showImage" width="100" height="100" src="{{ Storage::url($category->image) }}"
+                                    alt="">
                             </div>
 
                             <div class="form-group">
@@ -84,13 +85,7 @@
                     $('#showImage').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files[0]);
-            });
-            setTimeout(function() {
-                // $(".alert").alert('close');
-                $(".alert").fadeTo(1000, 0).slideUp(1000, function() {
-                    $(this).remove();
-                });
-            }, 3000);
+            })
         });
     </script>
 @endsection
