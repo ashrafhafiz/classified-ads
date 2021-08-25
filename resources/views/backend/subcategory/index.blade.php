@@ -7,19 +7,12 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-baseline">
-                            <h4 class="card-title">Categories</h4>
-                            <a href={{ route('auth.category.create') }} class="btn btn-outline-primary">Add New
-                                Category</a>
+                            <h4 class="card-title">Sub-Categories</h4>
+                            <a href={{ route('auth.subcategory.create') }} class="btn btn-outline-primary">Add New
+                                Sub-Category</a>
                         </div>
                         <p class="card-description"></p>
-                        {{-- @if (session('status'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('status') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @endif --}}
+
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
@@ -43,35 +36,38 @@
                         @endif
 
                         <div class="table-responsive">
-                            <table id="example" class="table table-striped">
+                            <table id="example" class="table">
                                 <thead>
                                     <tr>
                                         <th width="10%">SL</th>
                                         <th>Image</th>
                                         <th>Name</th>
+                                        <th>Category</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($categories as $key => $category)
+                                    @forelse ($subCategories as $key => $subcategory)
 
-                                        <tr>
+                                        <tr class="color">
                                             <td>{{ $key + 1 }}</td>
-                                            <td class="py-1"><img src="{{ Storage::url($category->image) }}" alt="image">
+                                            <td class="py-1"><img src="{{ Storage::url($subcategory->image) }}"
+                                                    alt="image">
                                             </td>
-                                            <td>{{ $category->name }}</td>
+                                            <td>{{ $subcategory->name }}</td>
+                                            <td>{{ $subcategory->category->name }}</td>
                                             <td class="text-center">
-                                                <a href={{ route('auth.category.edit', $category) }}
+                                                <a href={{ route('auth.subcategory.edit', $subcategory) }}
                                                     class="btn btn-info btn-sm mr-2"><i class="mdi mdi-table-edit"></i></a>
                                                 <button class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#exampleModal{{ $category->id }}">
+                                                    data-target="#exampleModal{{ $subcategory->id }}">
                                                     <i class="mdi mdi-delete"></i>
                                                 </button>
                                             </td>
                                         </tr>
 
                                         <!-- DELETE Modal -->
-                                        <div class="modal fade" id="exampleModal{{ $category->id }}" tabindex="-1"
+                                        <div class="modal fade" id="exampleModal{{ $subcategory->id }}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -86,12 +82,13 @@
                                                         Are you sure you want to delete this category?
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <form action="{{ route('auth.category.destroy', $category) }}"
+                                                        <form
+                                                            action="{{ route('auth.subcategory.destroy', $subcategory) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <input type="hidden" id="id" name="id"
-                                                                value="{{ $category->id }}">
+                                                            <input type="hidden" id="{{ $subcategory->id }}" name="id"
+                                                                value="{{ $subcategory->id }}">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -103,7 +100,7 @@
 
                                     @empty
 
-                                        <td>No Categories to display</td>
+                                        <td>No Sub-Categories to display</td>
 
                                     @endforelse
                                 </tbody>
@@ -132,4 +129,14 @@
             }, 3000);
         });
     </script>
+@endsection
+
+@section('custom-css')
+    <style>
+        .color {
+            background-color: rgb(211, 130, 130);
+        }
+
+    </style>
+
 @endsection

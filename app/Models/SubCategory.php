@@ -14,7 +14,7 @@ class SubCategory extends Model
     protected $table = 'sub_categories';
     public $timestamps = true;
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'slug', 'image');
+    protected $fillable = array('category_id', 'name', 'slug', 'image');
 
     public function category()
     {

@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use Illuminate\Http\Request;
-use App\Http\Requests\StoreCategoryRequest;
 use Carbon\Carbon;
+use App\Models\Category;
+use App\Models\SubCategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Support\Str;
+use App\Http\Requests\StoresubcategoryRequest;
 
-class CategoryController extends Controller
+class subcategoryController extends Controller
 {
+    static $NO_IAMGE = 'public/images/subcategories/no_image_available.png';
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +21,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data['categories'] = Category::all();
-        return view('backend.category.index', $data);
+        $data['subCategories'] = SubCategory::orderBy('category_id')->get();
+        return view('backend.subcategory.index', $data);
     }
 
     /**
@@ -30,8 +32,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $data['no_image'] = 'public/images/categories/no_image_available.png';
-        return view('backend.category.create', $data);
+        $data['categories'] = Category::all();
+        $data['no_image'] = 'public/images/subcategories/no_image_available.png';
+        return view('backend.subcategory.create', $data);
     }
 
     /**
@@ -40,26 +43,27 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoresubcategoryRequest $request)
     {
+        // dd($request);
         if ($request->hasFile('image')) {
-
             $uploaded_file_name = $request->file('image')->getClientOriginalName();
 
-            $image_name =  pathinfo($uploaded_file_name, PATHINFO_FILENAME)
+            $image_name = pathinfo($uploaded_file_name, PATHINFO_FILENAME)
                 . Carbon::now()->format('YmdHis')
                 . '.'
                 . pathinfo($uploaded_file_name, PATHINFO_EXTENSION);
 
-            $image_path = $request->file('image')->storeAs('public/images/categories', $image_name);
+            $image_path = $request->file('image')->storeAs('public/images/subcategories', $image_name);
         } else {
-            $image_path = 'public/images/categories/no_image_available.png';
+            $image_path = 'public/images/subcategories/no_image_available.png';
         }
 
-        Category::create([
+        SubCategory::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'image' => $image_path,
+            'category_id' => $request->category_id,
         ]);
 
         // session()->flash('success', 'Category created successfully!');
@@ -72,10 +76,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\SubCategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(SubCategory $subcategory)
     {
         //
     }
@@ -83,28 +87,31 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\SubCategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(SubCategory $subcategory)
     {
-        $data['category'] = $category;
-        return view('backend.category.edit', $data);
+        $data['categories'] = Category::all();
+        $data['subcategory'] = $subcategory;
+        return view('backend.subcategory.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\SubCategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCategoryRequest $request, Category $category)
+    public function update(Request $request, SubCategory $subcategory)
     {
         if ($request->hasFile('image')) {
 
             // Delete previous image
-            Storage::delete($category->image);
+            if ($subcategory->image != self::$NO_IAMGE) {
+                Storage::delete($subcategory->image);
+            }
 
             $uploaded_file_name = $request->file('image')->getClientOriginalName();
 
@@ -114,40 +121,44 @@ class CategoryController extends Controller
                 . pathinfo($uploaded_file_name, PATHINFO_EXTENSION);
 
             $image_path = $request->file('image')->storeAs('public/images/categories', $image_name);
-            $category->image = $image_path;
-            session()->flash('success', 'Category updated successfully!');
+            $subcategory->image = $image_path;
         }
 
-        if ($category->name != $request->name) {
-            // dd();
-            $category->name = $request->name;
-            $category->slug = Str::slug($request->name);
-            session()->flash('success', 'Category updated successfully!');
+        if ($subcategory->name != $request->name) {
+            $subcategory->name = $request->name;
+            $subcategory->slug = Str::slug($request->name);
         }
 
-        $category->save();
+        if ($subcategory->category_id != $request->category_id) {
+            $subcategory->category_id = $request->category_id;
+        }
 
-        Toastr::success('Category updated successfully!', 'Success', ["positionClass" => "toast-top-right"]);
+
+        session()->flash('success', 'Category updated successfully!');
+
+        $subcategory->save();
+
+        Toastr::success('Sub-Category updated successfully!', 'Success', ["positionClass" => "toast-top-right"]);
 
         // return redirect()->route('auth.category.index')->with('status', 'Category updated successfully!');
-        return redirect()->route('auth.category.index');
+        return redirect()->route('auth.subcategory.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\SubCategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(SubCategory $subcategory)
     {
         try {
-            $category = Category::findOrFail($category->id);
-            $category->delete();
+            $subcategory = SubCategory::findOrFail($subcategory->id);
+            $subcategory->delete();
 
             Toastr::success('Category deleted successfully!', 'Success', ["positionClass" => "toast-top-right"]);
 
-            return redirect()->route('auth.category.index');
+            return redirect()->route('auth.subcategory.index');
         } catch (\Throwable $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

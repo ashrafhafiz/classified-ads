@@ -7,19 +7,12 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-baseline">
-                            <h4 class="card-title">Categories</h4>
-                            <a href={{ route('auth.category.create') }} class="btn btn-outline-primary">Add New
-                                Category</a>
+                            <h4 class="card-title">Child-Categories</h4>
+                            <a href={{ route('auth.childcategory.create') }} class="btn btn-outline-primary">Add New
+                                Child-Category</a>
                         </div>
                         <p class="card-description"></p>
-                        {{-- @if (session('status'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('status') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        @endif --}}
+
                         @if (session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
@@ -49,49 +42,56 @@
                                         <th width="10%">SL</th>
                                         <th>Image</th>
                                         <th>Name</th>
+                                        <th>Sub-Category</th>
+                                        <th>Category</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($categories as $key => $category)
+                                    @forelse ($childCategories as $key => $childcategory)
 
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td class="py-1"><img src="{{ Storage::url($category->image) }}" alt="image">
+                                            <td class="py-1"><img src="{{ Storage::url($childcategory->image) }}"
+                                                    alt="image">
                                             </td>
-                                            <td>{{ $category->name }}</td>
+                                            <td>{{ $childcategory->name }}</td>
+                                            <td>{{ $childcategory->subCategory->name }}</td>
+                                            <td>Category</td>
                                             <td class="text-center">
-                                                <a href={{ route('auth.category.edit', $category) }}
+                                                <a href={{ route('auth.childcategory.edit', $childcategory) }}
                                                     class="btn btn-info btn-sm mr-2"><i class="mdi mdi-table-edit"></i></a>
                                                 <button class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#exampleModal{{ $category->id }}">
+                                                    data-target="#exampleModal{{ $childcategory->id }}">
                                                     <i class="mdi mdi-delete"></i>
                                                 </button>
                                             </td>
                                         </tr>
 
                                         <!-- DELETE Modal -->
-                                        <div class="modal fade" id="exampleModal{{ $category->id }}" tabindex="-1"
+                                        <div class="modal fade" id="exampleModal{{ $childcategory->id }}" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Child-Category
+                                                        </h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Are you sure you want to delete this category?
+                                                        Are you sure you want to delete this child-category?
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <form action="{{ route('auth.category.destroy', $category) }}"
+                                                        <form
+                                                            action="{{ route('auth.childcategory.destroy', $childcategory) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <input type="hidden" id="id" name="id"
-                                                                value="{{ $category->id }}">
+                                                                value="{{ $childcategory->id }}">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -103,7 +103,7 @@
 
                                     @empty
 
-                                        <td>No Categories to display</td>
+                                        <td>No child-Categories to display</td>
 
                                     @endforelse
                                 </tbody>

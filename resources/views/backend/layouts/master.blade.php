@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="{{ asset('admin/template/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="{{ asset('admin/template/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/template/css/style.css') }}">
+    @yield('custom-css')
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('admin/template/images/favicon.png') }}" />
 </head>

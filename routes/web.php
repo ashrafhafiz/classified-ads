@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChildCategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +29,6 @@ Route::get('/auth', function () {
     return view('backend.admin.index');
 });
 
-Route::get('/category', function () {
-    return view('backend.category.create');
-});
 
 Route::get('/test-bootstrap', function () {
     return view('test-bootstrap');
@@ -38,10 +37,10 @@ Route::get('/test-bootstrap', function () {
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
-// Route::group([], function () {
-//     Route::resource('category', CategoryController::class);
-// });
-
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::resource('category', CategoryController::class);
+    Route::resource('subcategory', SubCategoryController::class);
+    Route::resource('childcategory', ChildCategoryController::class);
+
+    Route::get('subcategories_per_category/{level_id}', [ChildCategoryController::class, 'subcategories_per_category'])->name('subcategories_per_category');
 });

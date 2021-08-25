@@ -14,7 +14,7 @@ class ChildCategory extends Model
     protected $table = 'child_categories';
     public $timestamps = true;
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'slug', 'image');
+    protected $fillable = array('sub_category_id', 'name', 'slug', 'image');
 
     public function subCategory()
     {
