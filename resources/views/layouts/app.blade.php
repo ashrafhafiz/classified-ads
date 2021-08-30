@@ -104,7 +104,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -132,22 +132,29 @@
             <div class="collapse navbar-collapse" id="navbarHover">
                 <!-- Left Side Of 2nd Navbar -->
                 <ul class="container-fluid navbar-nav">
-                    @for ($i = 0; $i < 6; $i++)
+                    @foreach ($categories as $key => $category)
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false"
-                                data-toggle="dropdown_remove_dropdown_class_for_clickable_link">Category(Electronics)</a>
+                                data-toggle="dropdown_remove_dropdown_class_for_clickable_link">{{ $category->name }}</a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#" class="dropdown-item dropdown-toggle">Subcategory(Laptop)</a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#" class="dropdown-item">Child Category(HP Laptop)</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                @foreach ($category->subCategories as $key => $subcategory)
+                                    <li>
+                                        <a href="#"
+                                            class="dropdown-item dropdown-toggle">{{ $subcategory->name }}</a>
+                                        <ul class="dropdown-menu">
+                                            {{-- @foreach ($subcategory->childCategories as $key => $childcategory) --}}
+                                            {{-- will be using hasManyThrough relationship --}}
+                                            @foreach ($category->childCategories as $key => $childcategory)
+                                                <li>
+                                                    <a href="#" class="dropdown-item">{{ $childcategory->name }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
-                    @endfor
+                    @endforeach
 
                 </ul>
             </div>

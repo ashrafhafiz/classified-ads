@@ -57,7 +57,7 @@
                                             </td>
                                             <td>{{ $childcategory->name }}</td>
                                             <td>{{ $childcategory->subCategory->name }}</td>
-                                            <td>Category</td>
+                                            <td>{{ $childcategory->subCategory->category->name }}</td>
                                             <td class="text-center">
                                                 <a href={{ route('auth.childcategory.edit', $childcategory) }}
                                                     class="btn btn-info btn-sm mr-2"><i class="mdi mdi-table-edit"></i></a>

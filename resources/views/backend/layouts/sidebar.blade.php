@@ -8,12 +8,12 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#category" aria-expanded="false" aria-controls="category">
                 <i class="mdi mdi-circle-outline menu-icon"></i>
                 <span class="menu-title">Category</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="category">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('auth.category.create') }}">Add
                             Category</a></li>
@@ -24,24 +24,44 @@
             </div>
         </li>
 
-        <li class="nav-item2">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false"
-                aria-controls="ui-basic1">
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#subcategory" aria-expanded="false"
+                aria-controls="subcategory">
                 <i class="mdi mdi-circle-outline menu-icon"></i>
-                <span class="menu-title">UI Elements 2</span>
+                <span class="menu-title">Sub-Category</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic1">
+            <div class="collapse" id="subcategory">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons1</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography1</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('auth.subcategory.create') }}">Add
+                            Sub-Category</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('auth.subcategory.index') }}">Manage
+                            Sub-Categories</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#childcategory" aria-expanded="false"
+                aria-controls="childcategory">
+                <i class="mdi mdi-circle-outline menu-icon"></i>
+                <span class="menu-title">Child-Category</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="childcategory">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('auth.childcategory.create') }}">Add
+                            Child-Category</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('auth.childcategory.index') }}">Manage
+                            Child-Categories</a>
                     </li>
                 </ul>
             </div>
         </li>
 
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="pages/forms/basic_elements.html">
                 <i class="mdi mdi-view-headline menu-icon"></i>
                 <span class="menu-title">Form elements</span>
@@ -91,7 +111,7 @@
                 <i class="mdi mdi-file-document-box-outline menu-icon"></i>
                 <span class="menu-title">Documentation</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </nav>
 <!-- partial -->

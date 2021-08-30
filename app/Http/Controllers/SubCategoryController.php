@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\StoresubcategoryRequest;
 
-class subcategoryController extends Controller
+class SubCategoryController extends Controller
 {
     static $NO_IAMGE = 'public/images/subcategories/no_image_available.png';
     /**
@@ -68,7 +68,7 @@ class subcategoryController extends Controller
 
         // session()->flash('success', 'Category created successfully!');
 
-        Toastr::success('Category created successfully!', 'Success', ["positionClass" => "toast-top-right"]);
+        Toastr::success('Sub-Category added successfully!', 'Success', ["positionClass" => "toast-top-right"]);
 
         return redirect()->back();
     }
