@@ -49,7 +49,7 @@
                                 <tbody>
                                     @forelse ($subCategories as $key => $subcategory)
 
-                                        <tr class="color">
+                                        <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td class="py-1"><img src="{{ Storage::url($subcategory->image) }}"
                                                     alt="image">
@@ -100,7 +100,7 @@
 
                                     @empty
 
-                                        <td>No Sub-Categories to display</td>
+                                        <td colspan="3">No Sub-Categories to display</td>
 
                                     @endforelse
                                 </tbody>

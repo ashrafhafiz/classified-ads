@@ -167,6 +167,7 @@ return [
          */
         // Brian2694\Toastr\ToastrServiceProvider::class,
         // Database\DataProviders\CountryProvider::class,
+        // CampaigningBureau\CfRepositoryGenerator\CfRepositoryGeneratorServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -177,6 +178,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
+        // added by me
+        App\Providers\ViewServiceProvider::class,
 
     ],
 
@@ -232,6 +235,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         // 'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+        // 'Form'      => Collective\Html\FormFacade::class,
+        // 'Html'      => Collective\Html\HtmlFacade::class,
+        // 'Flash'     => Laracasts\Flash\Flash::class,
 
     ],
 

@@ -61,3 +61,20 @@ foreach ($props as $prop) {
     print $prop->getName() . "<br>";
 }
 dd(Illuminate\Http\Request);
+
+
+Create Seeder file from table (iseed - inverse seed)
+ > php artisan iseed sub_categories --classnameprefix=Customized --clean --exclude=id,created_at,updated_at,deleted_at
+
+
+create View Composer
+ > php artisan make:provider ViewServiceProvider
+
+Remember, if you create a new service provider to contain your view composer registrations,
+you will need to add the service provider to the providers array in the config/app.php configuration file.
+
+
+You can easily generate interface and class for resository with given model name. Created class implements created
+interface and they have methods to do basic operations like store(), getAll(), etc.
+ > composer require mmurattcann/repository-generator
+

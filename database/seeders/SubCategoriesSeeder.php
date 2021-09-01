@@ -23,14 +23,14 @@ class SubCategoriesSeeder extends Seeder
                 'category_id' => 1,
                 'name' => 'Computers',
                 'slug' => 'computers',
-                'image' => '',
+                'image' => 'public/images/subcategories/no_image_available.png',
                 // 'created_at' => Carbon::now(),
             ],
             [
                 'category_id' => 1,
                 'name' => 'TVs',
                 'slug' => 'tvs',
-                'image' => '',
+                'image' => 'public/images/subcategories/no_image_available.png',
                 // 'created_at' => Carbon::now(),
             ]
         ];

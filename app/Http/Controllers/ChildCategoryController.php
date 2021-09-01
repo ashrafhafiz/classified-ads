@@ -133,15 +133,4 @@ class ChildCategoryController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-
-    /**
-     * Find the subcategories per a category.
-     *
-     * @param int $category_id
-     * @return collection
-     */
-    public function subcategories_per_category($category_id)
-    {
-        return SubCategory::where('category_id', $category_id)->get();
-    }
 }

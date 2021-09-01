@@ -20,7 +20,8 @@ class CreateCategoriesTable extends Migration
             $table->string('slug');
             $table->string('image')->nullable();
 
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
         });
     }
