@@ -11,9 +11,10 @@ class Advertisement extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'advertisments';
+    protected $table = 'advertisements';
     public $timestamps = true;
     protected $dates = ['deleted_at'];
+    // protected $garded = [];
     protected $fillable = [
         'user_id',
         'feature_image',
@@ -23,6 +24,7 @@ class Advertisement extends Model
         'sub_category_id',
         'child_category',
         'name',
+        'slug',
         'description',
         'price',
         'price_status',

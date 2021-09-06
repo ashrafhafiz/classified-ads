@@ -78,3 +78,8 @@ You can easily generate interface and class for resository with given model name
 interface and they have methods to do basic operations like store(), getAll(), etc.
  > composer require mmurattcann/repository-generator
 
+
+To modify existing columns in db tables, we need to install:
+ > composer require doctrine/dbal
+Then, in migration file:
+$table->string('link')->nullable()->change();
